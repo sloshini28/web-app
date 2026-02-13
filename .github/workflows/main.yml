@@ -1,0 +1,22 @@
+name: Deploy to EC2 Instance
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4 # This will now find your files
+
+      - name: Deploy to Web Folder
+        run: |
+          # Create folder and copy files
+          sudo mkdir -p /var/www/html
+          sudo cp -rf ./* /var/www/html/
+          
+          # Set permissions
+          sudo chmod -R 755 /var/www/html
